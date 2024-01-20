@@ -10,6 +10,8 @@
                     <img v-if="photo.type === 'photo'" :src="photo.photo.sizes[2].url" alt="Фото" class="img border_radius">
                     <img v-if="photo.type === 'link'" 
                     :src="photo.link.photo.sizes[2].url" alt="Фото" class="img border_radius">
+                    <img v-if="photo.type === 'video'" 
+                    :src="photo.video.image[2].url" alt="Фото" class="img border_radius">
                 </div>
             </div>
             
@@ -33,7 +35,6 @@ export default {
             loading: false, // Показывает, загружаются ли новые посты
             offset: 0, // Текущая страница данных
             count: 4, // Количество постов на странице
-            maxAttempts: 10,
         }
     },
     mounted() {
@@ -51,13 +52,12 @@ export default {
         },
 
         async getPosts() {
-            // const proxy = "https://cors-anywhere.herokuapp.com/"; // Прокси для обхода CORS
             const proxy = "http://localhost:8010/proxy/";
             const params = {
                 access_token: "a2d9b412a2d9b412a2d9b41246a1cf5a14aa2d9a2d9b412c771781abe90d6641ae46af7",
                 owner_id: '-73629052',
                 offset: this.posts.length,
-                count: 20,
+                count: 100,
                 v: "5.131"
             };
             var response = [];
